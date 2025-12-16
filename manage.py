@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
+from django.core.management import execute_from_command_line
 
 
 def main():
