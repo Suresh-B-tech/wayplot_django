@@ -184,7 +184,5 @@ async def upload_gpx(request):
             "message": "GPX converted and uploaded successfully.",
             "cloudinary_gpx_url": cloudinary_gpx_url,
             "cloudinary_json_url": cloudinary_json_url,
-            "nodes": len(graph_data['nodes']),
-            "edges": len(graph_data['edges']) // 2 
         }
     )
