@@ -4,7 +4,7 @@ import os
 from typing import Optional
 from django.http import HttpResponseNotAllowed, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils.gpx_parser import parse_gpx
+from .utils.routingUtil import GraphData, load_and_prepare_graph, haversine_distance, parse_gpx_content
 from .utils.graph_builder import build_graph
 from .algorithms.shortest_path import shortest_a_star
 from .algorithms.least_turn_path import turn_a_star
