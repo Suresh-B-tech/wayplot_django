@@ -1,4 +1,5 @@
 def build_graph(points):
+    points = points[0]
     graph = {}
 
     for i in range(len(points) - 1):
