@@ -32,12 +32,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            if [ ! -d "~/wayplot-django/.git" ]; then
+            DJANGO_DIR="$HOME/wayplot-django"
+
+            if [ ! -d "$DJANGO_DIR/.git" ]; then
               echo ".git does not exist, cloning repository..."
-              git clone ${{ secrets.REPO_URL }} ~/wayplot-django
+              git clone ${{ secrets.REPO_URL }} "$DJANGO_DIR"
             else
-              echo ".git exists, pulling latest changes..."
-              cd ~/wayplot-django && git pull
+              echo ".git exists, hard resetting to remote..."
+              cd "$DJANGO_DIR"
+              git fetch origin
+              git reset --hard "origin/main"
+              git clean -fd
             fi
 
       - name: Set environment variables on EC2
