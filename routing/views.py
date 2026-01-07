@@ -2,7 +2,7 @@ from http.client import HTTPException
 import io
 import os
 from typing import Optional
-from django.http import HttpResponseNotAllowed, JsonResponse
+from django.http import HttpResponseNotAllowed, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .utils.routingUtil import GraphData, load_and_prepare_graph, haversine_distance, parse_gpx_content
 from .utils.graph_builder import build_graph
@@ -19,6 +19,9 @@ cloudinary.config(
     api_secret = os.environ.get('CLOUDINARY_API_SECRET'),
     secure = True
 )
+
+def health_check(request):
+    return HttpResponse("Wayplot Django backend is healthy.", content_type="text/plain")
 
 @csrf_exempt
 def calculate_routes(request):

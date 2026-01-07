@@ -29,14 +29,15 @@ Including another URLconf
 #     path("routing/", include("routing.urls")),
 # ]
 
-from django.shortcuts import redirect
-from django.urls import path, include 
-from django.contrib import admin 
+
+from django.urls import path, include
+from django.contrib import admin
+from routing.views import health_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('routing/', include('routing.urls')),
-    path('', lambda request: redirect('routing/')),  # root redirects to /routing/
+    path('', health_check),  # root returns health check
 ]
 
 
