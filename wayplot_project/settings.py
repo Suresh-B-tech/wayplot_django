@@ -29,7 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "13.211.49.191",
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
+    "13.54.210.46"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
