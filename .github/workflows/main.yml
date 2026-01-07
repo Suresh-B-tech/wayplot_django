@@ -72,6 +72,16 @@ jobs:
             pip install --upgrade pip
             pip install -r requirements.txt
 
+      - name: Kill existing Gunicorn processes on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            pkill -9 gunicorn || echo "No existing Gunicorn processes found."
+
       - name: Run Django migrations and collectstatic on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
