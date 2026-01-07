@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "13.54.210.46",
+    "wayplot.sabz.me",
     "localhost",
     "127.0.0.1",
 ]
