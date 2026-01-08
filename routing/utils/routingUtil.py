@@ -1,6 +1,7 @@
 import math
 import heapq
 from typing import Dict, Any, List, Tuple, Optional
+from django.forms import ValidationError
 import requests
 import xml.etree.ElementTree as ET
 import io
@@ -221,7 +222,7 @@ def load_and_prepare_graph(map_url: str):
         response.raise_for_status() 
         data = response.json()
     except requests.RequestException as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch graph data from URL: {e}")
+        raise ValidationError(f"Failed to fetch graph data from URL: {e}")
 
     # Reset cache and populate new data
     GraphData.nodes = data.get('nodes', [])
@@ -251,7 +252,7 @@ def load_and_prepare_graph(map_url: str):
     GraphData.last_url = map_url
     # Status check
     if not GraphData.nodes:
-        raise HTTPException(status_code=500, detail="Graph data loaded but is empty.")
+        raise ValidationError("Graph data loaded but is empty.")
 
 
 def parse_gpx_content(gpx_content: bytes) -> List[List[Tuple[float, float]]]:
@@ -282,6 +283,6 @@ def parse_gpx_content(gpx_content: bytes) -> List[List[Tuple[float, float]]]:
         print("End of parsed tracks.")
         return tracks
     except ET.ParseError:
-        raise HTTPException(status_code=400, detail="Invalid GPX file format.")
+        raise ValidationError("Invalid GPX file format.")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error parsing GPX content: {e}")
+        raise ValidationError(f"Error parsing GPX content: {e}")

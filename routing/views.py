@@ -46,7 +46,7 @@ def calculate_routes(request):
             # Load the graph. This function uses the internal cache 
             # (GraphData.last_url) to avoid re-fetching if the URL hasn't changed.
             load_and_prepare_graph(map_url)
-        except HTTPException as e:
+        except Exception as e:
             # Re-raise error if fetching the graph data fails
             raise e
 
